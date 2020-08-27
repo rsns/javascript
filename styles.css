@@ -1,0 +1,29 @@
+.todo {
+    max-width: 320px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+h1 { text-align: center }
+
+li {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+span {
+    display: flex;
+    align-items: center;
+    background-color: beige;
+    min-height: 40px;
+}
+
+button {
+    margin: 2px;
+    min-height: 40px;
+}
+
+input {
+    background-color: beige;
+    width: 100%;
+}
