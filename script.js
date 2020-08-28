@@ -1,4 +1,4 @@
-const state = [
+const tasks = [
     {
         id: 'todo-0',
         name: 'Learn some js 0!'
@@ -14,9 +14,9 @@ const state = [
 ];
 
 function buildTodoItemEl(id, name) {
-    const item = document.createElement('li');
-    const span = document.createElement('span');
-    const textContent = document.createTextNode(name);
+    let item = document.createElement('li');
+    let span = document.createElement('span');
+    let textContent = document.createTextNode(name);
 
     span.appendChild(textContent);
 
@@ -29,8 +29,8 @@ function buildTodoItemEl(id, name) {
 }
 
 function buildButtonEl(type) {
-    const button = document.createElement('button');
-    const textContent = document.createTextNode(type);
+    let button = document.createElement('button');
+    let textContent = document.createTextNode(type);
 
     button.setAttribute('id', type);
     button.setAttribute('type', 'button');
@@ -40,39 +40,39 @@ function buildButtonEl(type) {
 }
 
 function renderTodoList() {
-    const frag = document.createDocumentFragment();
-    const todoListEl = document.querySelector('.todo');
+    let fragment = document.createDocumentFragment();
+    let todoListEl = document.querySelector('.todo');
 
-    state.forEach(task => {
+    tasks.forEach(task => {
         const item = buildTodoItemEl(task.id, task.name);
-        frag.appendChild(item);
+        fragment.appendChild(item);
     });
 
-    deleteButtonEvent(frag);
+    deleteButtonEvent(fragment);
 
-    editButtonEvent(frag);
+    editButtonEvent(fragment);
 
     while (todoListEl.firstChild) {
         todoListEl.removeChild(todoListEl.firstChild);
     }
 
-    todoListEl.appendChild(frag);
+    todoListEl.appendChild(fragment);
 }
 
 function editButtonEvent(element) {
-    element.childNodes.forEach(a => {
-        a.querySelector('#edit').addEventListener('click', (e) => {
+    element.childNodes.forEach(node => {
+        node.querySelector('#edit').addEventListener('click', (event) => {
 
-            replaceSpanWithInput(e);
+            replaceSpanWithInput(event);
 
         });
     });
 }
 
 function deleteButtonEvent(element) {
-    element.childNodes.forEach(a => {
-        a.querySelector('#delete').addEventListener('click', (e) => {
-            a.parentNode.removeChild(e.target.parentNode);
+    element.childNodes.forEach(node => {
+        node.querySelector('#delete').addEventListener('click', (event) => {
+            node.parentNode.removeChild(event.target.parentNode);
         });
     });
 }
