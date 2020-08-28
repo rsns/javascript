@@ -1,4 +1,4 @@
-.todo {
+.todo, .new-note {
     max-width: 320px;
     width: 100%;
     margin: 0 auto;
@@ -25,5 +25,6 @@ button {
 
 input {
     background-color: beige;
-    width: 100%;
 }
+
+.new-note

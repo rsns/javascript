@@ -13,6 +13,9 @@ const tasks = [
     }
 ];
 
+let todoListEl = document.querySelector('.todo');
+let fragment = document.createDocumentFragment();
+
 function buildTodoItemEl(id, name) {
     let item = document.createElement('li');
     let span = document.createElement('span');
@@ -28,6 +31,30 @@ function buildTodoItemEl(id, name) {
     return item;
 }
 
+function addNewTask() {
+    let newTaskContainer = document.querySelector('.new-task');
+    let input = newTaskContainer.querySelector('input');
+
+    newTaskContainer.appendChild(buildButtonEl('submit'));
+
+    newTaskContainer.querySelector('#submit').addEventListener('click', (event) => {
+        let task = {
+            id: 'todo-' + tasks.length,
+            name: input.value
+        };
+
+        if (input.value) {
+            tasks.push(task);
+            renderTodoList();
+
+            input.value = null;
+        }
+        else {
+            alert('task can\'t be empty')
+        }
+    });
+}
+
 function buildButtonEl(type) {
     let button = document.createElement('button');
     let textContent = document.createTextNode(type);
@@ -40,8 +67,6 @@ function buildButtonEl(type) {
 }
 
 function renderTodoList() {
-    let fragment = document.createDocumentFragment();
-    let todoListEl = document.querySelector('.todo');
 
     tasks.forEach(task => {
         const item = buildTodoItemEl(task.id, task.name);
@@ -73,6 +98,10 @@ function deleteButtonEvent(element) {
     element.childNodes.forEach(node => {
         node.querySelector('#delete').addEventListener('click', (event) => {
             node.parentNode.removeChild(event.target.parentNode);
+            let index = event.target.parentNode.id.split('-')
+            tasks.splice(index[1], 1);
+
+            renderTodoList();
         });
     });
 }
@@ -105,10 +134,11 @@ function replaceEditWithOk(event) {
 
         parent.replaceChild(span, input);
         parent.replaceChild(newEditButton, okButton);
-        parent.querySelector('#edit').addEventListener('click', (e) => {
-            replaceSpanWithInput(e);
+        parent.querySelector('#edit').addEventListener('click', (event) => {
+            replaceSpanWithInput(event);
         })
     });
 }
 
 renderTodoList();
+addNewTask();
